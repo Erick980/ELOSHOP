@@ -31,5 +31,5 @@ public class Produto
 
     [StringLength(300)]
     public string Foto { get; set; }
-
+    public string Nome { get; internal set; }
 }
