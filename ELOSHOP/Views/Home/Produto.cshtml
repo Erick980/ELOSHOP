@@ -1,4 +1,4 @@
-@model Produto
+@model ProdutoVM
 
 @{
     ViewData["Title"] = "Produto";
@@ -17,13 +17,13 @@
     <div class="container">
         <div class="row">
             <div class="col-md-5">
-                <img class="img-fluid px-4" src="@Model.Foto" alt="@Model.Nome">
+                <img class="img-fluid px-4" src="@Model.Produto.Foto" alt="@Model.Produto.Nome">
             </div>
             <div class="col-md-7">
-                <h2 class"display-6>@Model.Nome</h2>
-                <p class="text-muted">@Model.Categoria.Nome</p>
-                <p class="mt-5">@Model.Descricao</p>
-                <p class="fs-3 fw-bolder">R$ @Model.Preco.ToString("N2")</p>
+                <h2 class"display-6>@Model.Produto.Nome</h2>
+                <p class="text-muted">@Model.Produto.Categoria.Nome</p>
+                <p class="mt-5">@Model.Produto.Descricao</p>
+                <p class="fs-3 fw-bolder">R$ @Model.Produto.Preco.ToString("N2")</p>
             </div>
         </div>
     </div>
@@ -36,12 +36,20 @@
         @if (Model.Avaliacoes.Count == 0)
         {
             <div class="card rounded-3 mt-4">
+                <h5>Este produto ainda não foi avaliado, seja o primeiro</h5>
+            </div>
+        }
+
+        @foreach (var avaliacao in Model.Avaliacoes)
+        {
+            <div class="card rounded-3 mt-4">
                 <h5 class="card-header">@avaliacao.Titulo</h5>
                 <div class="card-body">
                     <p class="card-text mb-1"@avaliacao.Texto></p>
                     <small class="card-text mb-1 text-muted t">@avaliacao.Nome em 
                         @avaliacao.DataAvaliacao.ToString("dd/MM/yyyy")</small>
                 </div>
+
                 <div class="card-footer">
                     <div class="d-flex justify-content-between">
                         <label>essa avaliação foi útil ?</label>
@@ -53,8 +61,6 @@
                 </div>
             </div>
         }
-    </div>
-</div>
 
 <div class="card rounded-3 mt-4">
     <h5 class="card-header">Deixe sua avaliação</h5>
